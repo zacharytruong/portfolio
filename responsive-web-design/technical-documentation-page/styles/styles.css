@@ -1,0 +1,126 @@
+/* Global Styles */
+:root {
+    --primary-color: #000;
+    --text-color: #4d4d4d;
+}
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+h1,
+#main-header,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-color);
+}
+p {
+    color: var(--text-color);
+}
+h1 {
+    font-size: 36px;
+}
+#main-header {
+    font-size: 32px;
+}
+h3,
+.main-section header {
+    font-size: 32px;
+}
+p {
+    font-size: 16px;
+}
+.main-section code {
+    background-color: #f2f2f2;
+}
+
+.main-section ul {
+    color: var(--text-color);
+}
+/* Header */
+#navbar #main-header {
+    padding: 20px 0 20px 20px;
+}
+#navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#navbar ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+#navbar ul li a:hover {
+    color: var(--primary-color);
+}
+#navbar ul li {
+    padding: 20px 0 20px 20px;
+    border-top: solid 1px var(--text-color);
+}
+/* Main */
+.main-section{
+    margin: 30px;
+}
+.main-section header {
+    padding: 20px 0;
+}
+.main-section ul {
+    list-style: inside;
+}
+.main-section p,
+.main-section ul li,
+.main-section code {
+    line-height: 1.75;
+    padding: 10px 40px;
+}
+.main-section code {
+    display: block;
+    white-space: pre-wrap;
+    margin: 0 30px;
+}
+/* Responsive Design */
+@media (min-width: 881px) {
+    .main-container {
+        display: float;
+    }
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    #navbar {
+        width: 20%;
+        height: 100vh;
+        float: left;
+        position:fixed;
+        top: 0;
+        border-right: 3px solid var(--text-color);
+    }
+    #main-doc {
+        width: 80%;
+        float: right;
+    }
+}
+@media (max-width: 1130px) {
+    #main-header {
+        font-size: 24px;
+    }
+}
+@media (max-width: 880px) {
+    .main-container {
+        display: flex;
+        flex-direction: column;
+    }
+    #navbar {
+        width: 100%;
+        height: 30vh;
+        box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        position: relative;
+        overflow: scroll;
+    }
+    #main-doc {
+        width: 100%;
+    }
+}
+

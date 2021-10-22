@@ -1,0 +1,1 @@
+This is a collection of Responsive Web Design practices.

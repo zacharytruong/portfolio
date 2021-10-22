@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Etch A Sketch</title>
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <script src="scripts/script.js" defer></script>
+</head>
+<body>
+<div class='header-container'>
+  <div class='header'>
+    <h1>Etch A Sketch</h1>
+  </div>
+</div>
+<div class= 'main-container'>
+  <div class='main-options'>
+    <div class='option'>
+      <label for="favcolor">Select your favorite color:</label><br>
+      <input type="color" id="favcolor" name="favcolor" value="#C86464">
+    </div>
+    <div class='option'>
+      <input type="button" id='rainbow' class='button' value='Rainbow'/>
+    </div>
+    <div class='option'>
+      <input type="button" id='clear' class='button' value='Clear'/>
+    </div>
+    <div class='option'>
+      <p>Sketchpad size: <span class='range'></span></p>
+      <input type='range' id='range' min='16' max='48' value='16' step="16" />
+    </div>
+  </div>
+  <div id='sketchpad-container'>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+/* Global Styles */
+:root {
+    background: linear-gradient(90deg, rgba(131,58,180,0.85) 0%, rgba(253,29,29,0.85) 50%, rgba(252,176,69,0.85) 100%);
+  }
+    h1 {
+    font-size: 36px;
+    color: #FFF;
+  }
+    p {
+      font-size: 20px;
+      color: #FFF;
+  }
+    label {
+      font-size: 20px;
+      color: #FFF;
+  }
+  
+  /* Main Content Box */
+  .main-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+  }
+  
+  /* Header */
+  .main-header {
+    text-align: center;
+    padding-top: 20px;
+  }
+  
+  /* Form Groups */
+  .form-group {
+    margin: 10px 0;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="number"],
+  .form-group select {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 0 10px 10px;
+    margin: 15px 0;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+  }
+  .form-group input[type="radio"],
+  .form-group input[type="checkbox"] {
+      margin: 10px 0;
+  }
+  .suggestion-container {
+    margin-top: 50px;
+  }
+  #suggestion {
+    margin: 15px 0;
+    width: 100%;
+    border-radius: 10px;
+  }
+  #submit {
+    font-size: 18px;
+    padding: 15px 40px;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #FFF;
+  }
+  #submit:hover {
+    font-size: 18px;
+    padding: 15px 40px;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    background-color: #FFF;
+    color: #000;
+  }
+  @media (max-width: 500px) {
+    h1 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 14px;
+    }
+    label {
+      font-size: 16px;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="number"],
+    .form-group select {
+      font-size: 14px;
+    }
+    #submit {
+    font-size: 14px;
+    padding: 15px 40px;
+    border: 1px solid #FFF;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #FFF;
+      }
+    #submit:hover {
+      font-size: 14px;
+      padding: 15px 40px;
+      border: 1px solid #FFF;
+      border-radius: 5px;
+      background-color: #FFF;
+      color: #000;
+      }
+    .main-content {
+      margin: 20px 0;
+      max-width: 100%;
+     }
+  }  

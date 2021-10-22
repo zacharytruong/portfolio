@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors Game</title>
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link 
+  rel="stylesheet" 
+  href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
+  integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
+  crossorigin="anonymous"
+  />
+  <script type="text/javascript" src="scripts/script.js" defer></script>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <div class="mainContainer">
+    <div class="items">
+      <div class="selection">
+        <button id="rock" data='rock' class="item hilight">
+          <svg data='rock' class="icon" width="101" height="93" viewBox="0 0 101 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d)">
+            <path d="M39.1708 2L31.2044 27.5505L50.4291 34.7374L78.5373 19.6011L39.1708 2Z" fill="white"/>
+            <path d="M30.5635 28.1501L49.4333 35.2043L2.06429 52.0956L3.81302 23.0447L30.5713 28.1253L30.5635 28.1501Z" fill="white"/>
+            <path d="M2.01291 52.9491L50.1318 35.7905L72.349 75H14.7143L2 53.1636L2.01291 52.9491Z" fill="white"/>
+            <path d="M50.7832 35.4319L73.065 74.7555L91 55.5458L79.1308 20.1667L50.7832 35.4319Z" fill="white"/>
+            <path d="M30.5124 27.3082L38.2747 2.4122L4.76972 22.4204L30.5124 27.3082Z" fill="white"/>
+            </g>
+            <defs>
+            <filter id="filter0_d" x="0" y="0" width="101" height="85" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dx="4" dy="4"/>
+            <feGaussianBlur stdDeviation="3"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.2275 0 0 0 0 0.28125 0 0 0 0 0.21875 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+            </filter>
+            </defs>
+          </svg>                            
+          Rock
+        </button>
+        <button id="paper" data='paper' class="item hilight">
+          <svg data='paper' class="icon" width="73" height="93" viewBox="0 0 73 93" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M63 25.4615H41.4154V2L2 2.00003V82.7077H63V25.4615ZM63 23.5846H43.2923V2L63 23.5846Z" fill="white"/>
+            </g>
+            <defs>
+            <filter id="filter0_d" x="0" y="0" width="73" height="92.7077" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dx="4" dy="4"/>
+            <feGaussianBlur stdDeviation="3"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.2275 0 0 0 0 0.28125 0 0 0 0 0.21875 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+            </filter>
+            </defs>
+          </svg>  
+          Paper
+        </button>
+        <button id="scissor" data='scissor' class="item hilight">
+          <svg data='scissor' class="icon" width="81" height="93" viewBox="0 0 81 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M59.6215 2C63.4479 4.20914 64.7589 9.10186 62.5497 12.9282L42.634 47.4232C42.8713 48.1264 43 48.8797 43 49.663C43 51.5479 42.255 53.2588 41.0433 54.5173L44.2477 59.8772C46.4495 55.0321 51.3313 51.663 57 51.663C64.732 51.663 71 57.931 71 65.663C71 73.395 64.732 79.663 57 79.663C51.9001 79.663 47.437 76.936 44.9895 72.8607L44.8745 72.9294L36.2112 58.4387L28.9155 71.0752C26.799 76.1198 21.8133 79.663 16 79.663C8.26801 79.663 2 73.395 2 65.663C2 57.931 8.26801 51.663 16 51.663C21.6395 51.663 26.5002 54.9974 28.718 59.8023L31.484 55.0116C29.9647 53.7275 29 51.8079 29 49.663C29 48.7782 29.1641 47.9318 29.4637 47.1525L9.10516 13.1C6.83796 9.30777 8.07422 4.39562 11.8664 2.12842L36.1007 42.6637L36.1439 42.6644L59.6215 2ZM50.1401 69.7814C51.5394 72.1071 54.088 73.663 57 73.663C61.4183 73.663 65 70.0812 65 65.663C65 61.2447 61.4183 57.663 57 57.663C52.5817 57.663 49 61.2447 49 65.663C49 66.9365 49.2976 68.1405 49.827 69.2093L50.1614 69.7686L50.1401 69.7814ZM33.3255 48.3025C33.1174 48.7109 33 49.1732 33 49.663C33 50.0157 33.0609 50.3541 33.1727 50.6685C33.2677 50.9358 33.3996 51.1856 33.5622 51.4119C33.6014 51.4664 33.6424 51.5196 33.6851 51.5712C34.2353 52.238 35.068 52.663 36 52.663C36.932 52.663 37.7647 52.238 38.3149 51.5712C38.3866 51.4844 38.4535 51.3934 38.5152 51.2988C38.8218 50.8283 39 50.2664 39 49.663C39 49.2221 38.9049 48.8033 38.734 48.4263C38.7043 48.3605 38.6722 48.2961 38.6379 48.233C38.1299 47.2978 37.1391 46.663 36 46.663C35.9271 46.663 35.8547 46.6656 35.7831 46.6707C34.7085 46.7475 33.7905 47.3902 33.3255 48.3025ZM16 73.663C20.4183 73.663 24 70.0812 24 65.663C24 61.2447 20.4183 57.663 16 57.663C11.5817 57.663 8 61.2447 8 65.663C8 70.0812 11.5817 73.663 16 73.663Z" fill="white"/>
+            </g>
+            <defs>
+            <filter id="filter0_d" x="0" y="0" width="81" height="89.663" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dx="4" dy="4"/>
+            <feGaussianBlur stdDeviation="3"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0.2275 0 0 0 0 0.28125 0 0 0 0 0.21875 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+            </filter>
+            </defs>
+          </svg>
+          Scissors
+        </button>
+      </div>
+      <div class="info">
+        <p>INFO BOX</p>
+      </div>
+      <div class="scores">
+        <div class="item noPadding">
+          <p id="player" class="score">Score</p>
+          <p class="name">Player</p>
+        </div>
+        <div class="item noPadding">
+          <p id="computer" class="score">Score</p>
+          <p class="name">Computer</p>
+        </div>
+      </div>
+      <div class="newGame">
+        <button id="newGame" class="item hilight">New Game</button>
+      </div>
+    </div>
+    <div class="gameHistory">
+      <div class="historyTitle">
+        <p>Game History</p>
+        <ol class="historyContent"></ol>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
