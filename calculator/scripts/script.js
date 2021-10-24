@@ -6,6 +6,7 @@ let previousNumber;
 let currentNumber;
 let currentOperator;
 let currentResult;
+let userSelection;
 
 // Global functions        
 function displayHistory(value){
@@ -16,9 +17,9 @@ function displayResult(value){
 }
 function clearAll(){
   previousNumber = undefined;
-  currentNumber = undefined;
-  currentNumber = undefined;
-  currentResult = undefined;
+  currentOperator = undefined;
+  history.textContent = '';
+  result.value = '';
 }
 function add(a, b){
   return a + b;
@@ -35,6 +36,12 @@ function divide(a, b){
     history.textContent = `ERROR`;
   } else return a / b;
 }
+function percentage(value){
+  return value / 100;
+}
+function isDecimal(value){
+  return value.includes('.') ? true : false;
+}
 function operate(callBackFn, a, b){
   currentResult = callBackFn(a, b);
   displayHistory(`${previousNumber} ${currentOperator} ${currentNumber}`);
@@ -44,10 +51,11 @@ function operate(callBackFn, a, b){
   return currentResult;
 }
 
-// Events for buttons
+// Buttons with click event
 buttons.forEach(operation)
 function operation(button){
   button.addEventListener('click', e => {
-
+    userSelection = e.target.value;
+    
   });
 }
