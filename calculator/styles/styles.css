@@ -70,3 +70,8 @@ html {
   color: #FFF;
   background-color: #9A224F;
 }
+
+.active {
+  color: #9A224F;
+  background-color: #000;
+}
