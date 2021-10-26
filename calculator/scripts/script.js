@@ -2,6 +2,9 @@
 const history = document.querySelector('.history');
 const result = document.querySelector('.result');
 const buttons = document.querySelectorAll('.button');
+const clearButton = document.getElementById('clear');
+const equalButton = document.getElementById('equal');
+const deletion = document.getElementById('delete')
 let previousNumber = '';
 let currentNumber = '';
 let currentOperator = '';
@@ -20,12 +23,8 @@ const operators = [
                   sign: '%',},
 ]
 // Global functions        
-function displayHistory(value){
-  history.textContent = value;
-}
-function displayResult(value){
-  result.value = value;
-}
+function displayHistory(value) {history.textContent = value}
+function displayResult(value) {result.value = value}
 function clearAll(){
   previousNumber = '';
   currentOperator = '';
@@ -48,9 +47,7 @@ function subtract(a, b){
    } else return parseInt(a) - parseInt(b);
 }
 function multiply(a, b){
-  if (a == '' || b == ''){
-    return 0;
-   } else return parseInt(a) * parseInt(b);
+  return (a == '' || b == '') ? 0 : parseInt(a) * parseInt(b);
 }
 function divide(a, b){
   if (b == 0 || b == ''){
@@ -60,12 +57,8 @@ function divide(a, b){
     return 0;
    } else return parseInt(a) / parseInt(b);
 }
-function percentage(value){
-  return value / 100;
-}
-function isDecimal(value){
-  return value.includes('.') ? true : false;
-}
+function percentage(value) { return value / 100};
+function isDecimal(value){return value.toString().includes('.') ? true : false}
 function setOperatorSign(value){
   let operator = operators.find( operator => {
     if (operator.name === value) return operator;
@@ -73,14 +66,15 @@ function setOperatorSign(value){
   return operator.sign;
 }
 function setOperatorName(value){
-  return operators.find( operator => {
+  let operator = operators.find( operator => {
     if (operator.name === value) return operator.name;
   })
+  return operator.name;
 }
-function matchOperator(value){
+function checkExistOperator(value){
   return operators.some( operator => operator.name === value)
 }
-function operate(callBackFn, a, b){
+function calculate(callBackFn, a, b){
   currentResult = callBackFn(a, b);
   displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)} ${currentNumber}`);
   displayResult(currentResult);
@@ -90,46 +84,74 @@ function operate(callBackFn, a, b){
   return currentResult;
 }
 
-// Buttons with click event for styling
-
-
-// Buttons with click event for calculation
-buttons.forEach(operation)
-function operation(button){
+// Events for utility buttons
+clearButton.addEventListener('click', clearAll);
+deletion.addEventListener('click', removeLastNumber);
+function removeLastNumber(){
+  return result.value = result.value.slice(0, -1);
+}
+// Events for operator buttons
+buttons.forEach( button => {
   button.addEventListener('click', e => {
     userSelection = e.target.value;
-    if (!isNaN(userSelection) &&
+    if (checkExistOperator(userSelection) &&
+      !previousNumber){
+      return displayHistory('ERROR - Need a number');
+    } else if (checkExistOperator(userSelection) &&
+              previousNumber){
+                currentOperator = setOperatorName(userSelection);
+                displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`);
+    }
+  })
+})
+
+// Events for number buttons
+buttons.forEach( button => {
+  button.addEventListener('click', e => {
+    userSelection = e.target.value;
+    if (!isNaN(userSelection) && // User clicks a number, no operater was defined, and previousNumber is empty
       !currentOperator &&
-      !isNaN(currentResult)) {
+      !previousNumber){
+        previousNumber = userSelection;
+        displayResult(userSelection);
+        return previousNumber;
+    } else if (!isNaN(userSelection) && // User clicks a number, no operater was defined, and previousNumber is not empty
+              !currentOperator &&
+              previousNumber){
         previousNumber = previousNumber.toString().concat(userSelection);
         displayResult(previousNumber);
-    } else if (!isNaN(userSelection) &&
-              currentOperator) {
+        return previousNumber;
+    } else if (!isNaN(userSelection) && // User clicks a number, operater was defined, and currentNumber is empty
+              currentOperator &&
+              !currentNumber){
+                currentNumber = userSelection;
+                displayResult(currentNumber);
+                return currentNumber;
+    } else if (!isNaN(userSelection) && // User clicks a number, operater was defined, and currentNumber is not empty
+              currentOperator &&
+              currentNumber){
                 currentNumber = currentNumber.toString().concat(userSelection);
                 displayResult(currentNumber);
-                displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`)
-    } else if (matchOperator(userSelection) &&
-              !previousNumber){
-                clearAll();
-                displayHistory('ERROR - Need a number');
-    } else if (matchOperator(userSelection) &&
-              previousNumber){
-                currentOperator = userSelection;
-    } else if (userSelection == 'equal' &&
-              !currentOperator ||
-              userSelection == 'equal' &&
-              currentOperator &&
-              !currentNumber) {
-                clearAll();
-                displayHistory('');
-    } else if (userSelection == 'equal' &&
-              currentOperator &&
-              currentNumber) {
-                return operate(window[currentOperator], previousNumber, currentNumber)
-    } else if (userSelection == 'clear'){
-              clearAll();
-    }
-})}
+                return currentNumber;
+}
+  })
+})
+
+// Events for equal buttons
+equalButton.addEventListener('click', performCalculation);
+function performCalculation(){
+  if (!previousNumber &&
+    !currentNumber &&
+    !currentOperator &&
+    !currentResult){
+    displayHistory('')
+  }
+}
+
+
+
+
+
 
 console.log('previous Number is ' + previousNumber)
 console.log('current Number is ' + currentNumber)
