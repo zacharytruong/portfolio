@@ -1,7 +1,7 @@
 // Global variable
 const history = document.querySelector('.history');
 const result = document.querySelector('.result');
-const buttons = document.querySelectorAll('.button');
+const buttons = Array.from(document.querySelectorAll('.button'));
 const clearButton = document.getElementById('clear');
 const equalButton = document.getElementById('equal');
 const deletion = document.getElementById('delete')
@@ -31,6 +31,7 @@ function clearAll(){
   currentOperator = '';
   currentNumber = '';
   currentResult = '';
+  removeActiveClass(buttons)
   history.textContent = '';
   result.textContent = '';
 }
@@ -73,18 +74,34 @@ function calculate(callBackFn, a, b){
   currentResult = callBackFn(a, b);
   return currentResult
 }
+function removeActiveClass(arr){
+  arr.forEach(button => {
+    if (button.className.includes('active')){
+      button.classList.remove('active')
+    }
+  })
+}
 
 // Events for utility buttons
 clearButton.addEventListener('click', clearAll)
 deletion.addEventListener('click', removeLastNumber)
 function removeLastNumber(){
   result.textContent = result.textContent.slice(0, -1);
-  previousNumber = parseFloat(result.textContent);
-  return previousNumber;
+  if (!checkExistOperator(currentOperator)){
+    previousNumber = parseFloat(result.textContent);
+    currentResult = previousNumber;
+    return previousNumber;
+  } else {
+      currentNumber = parseFloat(result.textContent);
+      currentResult = currentNumber;
+      return currentNumber;
+  }
 }
+
 // Events for operator buttons
 buttons.forEach( button => {
   button.addEventListener('click', e => {
+    let target = e.target;
     userSelection = e.target.value;
     if (checkExistOperator(userSelection) && // User clicks a number, no number was defined
       !previousNumber){
@@ -92,10 +109,8 @@ buttons.forEach( button => {
     } else if (checkExistOperator(userSelection) &&
               previousNumber){
                 currentOperator = userSelection;
-                displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`);
-    } else if (checkExistOperator(userSelection) &&
-              previousNumber){
-                currentOperator = userSelection;
+                removeActiveClass(buttons)
+                target.classList.add('active')
                 displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`);
     }
   })
@@ -138,7 +153,7 @@ buttons.forEach( button => {
                 currentResult = currentNumber;
                 displayResult(currentResult)
                 return currentNumber;
-}
+    }
   })
 })
 
@@ -208,7 +223,7 @@ buttons.forEach( button => {
   })
 })
 
-
+// Keyboard support
 
 
 
