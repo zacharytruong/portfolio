@@ -48,6 +48,9 @@ html {
   color: #9A224F;
   background-color: #000;
 }
+.zero-button {
+  flex-basis: 50%;
+}
 .history,
 .result {
   font-size: 2.5rem;

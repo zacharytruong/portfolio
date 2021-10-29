@@ -88,7 +88,7 @@ buttons.forEach( button => {
     userSelection = e.target.value;
     if (checkExistOperator(userSelection) && // User clicks a number, no number was defined
       !previousNumber){
-      return displayHistory('Syntax Error');
+      return displayHistory('ERROR');
     } else if (checkExistOperator(userSelection) &&
               previousNumber){
                 currentOperator = userSelection;
@@ -105,7 +105,12 @@ buttons.forEach( button => {
 buttons.forEach( button => {
   button.addEventListener('click', e => {
     userSelection = e.target.value;
-    if (!isNaN(userSelection) &&  
+    if (!isNaN(userSelection) &&
+      userSelection == '0'){            
+        currentResult = userSelection;
+        displayResult(currentResult)
+        return currentResult;
+    } else if (!isNaN(userSelection) &&  
       !currentOperator &&         
       !previousNumber){            
         previousNumber = userSelection;
@@ -193,21 +198,13 @@ buttons.forEach( button => {
         currentResult = previousNumber;
         displayResult(currentResult)
         return previousNumber
+      } else if (userSelection == 'decimal' &&
+                !isDecimal(currentNumber)){
+                  currentNumber = currentNumber.toString().concat('.');
+                    currentResult = currentNumber;
+                    displayResult(currentResult)
+                    return currentNumber
       } else return
-  })
-  if (userSelection == 'decimal' &&
-    !isDecimal(currentNumber)){
-      currentNumber = currentNumber.toString().concat('.');
-        currentResult = currentNumber;
-        displayResult(currentResult)
-        return currentNumber
-      } else return
-})
-
-// Events for parentheses button
-buttons.forEach( button => {
-  button.addEventListener('click', e => {
-    userSelection = e.target.value;
   })
 })
 
