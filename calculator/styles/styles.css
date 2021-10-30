@@ -77,4 +77,5 @@ html {
 .active {
   color: #9A224F;
   background-color: #000;
+  transform: scale(1.1);
 }

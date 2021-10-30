@@ -35,6 +35,18 @@ function clearAll(){
   history.textContent = '';
   result.textContent = '';
 }
+function removeLastNumber(){
+  result.textContent = result.textContent.slice(0, -1);
+  if (!checkExistOperator(currentOperator)){
+    previousNumber = parseFloat(result.textContent);
+    currentResult = previousNumber;
+    return previousNumber;
+  } else {
+      currentNumber = parseFloat(result.textContent);
+      currentResult = currentNumber;
+      return currentNumber;
+  }
+}
 function add(a, b){
    if (a == ''){
     return b
@@ -81,84 +93,57 @@ function removeActiveClass(arr){
     }
   })
 }
-
-// Events for utility buttons
-clearButton.addEventListener('click', clearAll)
-deletion.addEventListener('click', removeLastNumber)
-function removeLastNumber(){
-  result.textContent = result.textContent.slice(0, -1);
-  if (!checkExistOperator(currentOperator)){
-    previousNumber = parseFloat(result.textContent);
-    currentResult = previousNumber;
-    return previousNumber;
-  } else {
-      currentNumber = parseFloat(result.textContent);
-      currentResult = currentNumber;
-      return currentNumber;
+function setOperator(e){
+  let target = e.target;
+  userSelection = e.target.value;
+  if (checkExistOperator(userSelection) && // User clicks a number, no number was defined
+    !previousNumber){
+    return displayHistory('ERROR');
+  } else if (checkExistOperator(userSelection) &&
+            previousNumber){
+              currentOperator = userSelection;
+              removeActiveClass(buttons)
+              target.classList.add('active')
+              displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`);
   }
 }
-
-// Events for operator buttons
-buttons.forEach( button => {
-  button.addEventListener('click', e => {
-    let target = e.target;
-    userSelection = e.target.value;
-    if (checkExistOperator(userSelection) && // User clicks a number, no number was defined
-      !previousNumber){
-      return displayHistory('ERROR');
-    } else if (checkExistOperator(userSelection) &&
-              previousNumber){
-                currentOperator = userSelection;
-                removeActiveClass(buttons)
-                target.classList.add('active')
-                displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`);
-    }
-  })
-})
-
-// Events for number buttons
-buttons.forEach( button => {
-  button.addEventListener('click', e => {
-    userSelection = e.target.value;
-    if (!isNaN(userSelection) &&
-      userSelection == '0'){            
-        currentResult = userSelection;
-        displayResult(currentResult)
-        return currentResult;
-    } else if (!isNaN(userSelection) &&  
-      !currentOperator &&         
-      !previousNumber){            
-        previousNumber = userSelection;
-        currentResult = previousNumber;
-        displayResult(currentResult)
-        return previousNumber;
-    } else if (!isNaN(userSelection) && 
-              !currentOperator &&       
-              previousNumber){           
-                previousNumber = previousNumber.toString().concat(userSelection);
-                currentResult = previousNumber;
-                displayResult(currentResult)
-                return previousNumber;
+function setNumbers(e){
+  userSelection = e.target.value;
+  if (!isNaN(userSelection) &&
+    userSelection == '0'){            
+      currentResult = userSelection;
+      displayResult(currentResult)
+      return currentResult;
+  } else if (!isNaN(userSelection) &&  
+    !currentOperator &&         
+    !previousNumber){            
+      previousNumber = userSelection;
+      currentResult = previousNumber;
+      displayResult(currentResult)
+      return previousNumber;
   } else if (!isNaN(userSelection) && 
-              currentOperator &&
-              !currentNumber){
-                currentNumber = userSelection;
-                currentResult = currentNumber;
-                displayResult(currentResult);
-                return currentNumber;
-    } else if (!isNaN(userSelection) && 
-              currentOperator &&
-              currentNumber){
-                currentNumber = currentNumber.toString().concat(userSelection);
-                currentResult = currentNumber;
-                displayResult(currentResult)
-                return currentNumber;
-    }
-  })
-})
-
-// Events for equal buttons
-equalButton.addEventListener('click', performCalculation);
+            !currentOperator &&       
+            previousNumber){           
+              previousNumber = previousNumber.toString().concat(userSelection);
+              currentResult = previousNumber;
+              displayResult(currentResult)
+              return previousNumber;
+} else if (!isNaN(userSelection) && 
+            currentOperator &&
+            !currentNumber){
+              currentNumber = userSelection;
+              currentResult = currentNumber;
+              displayResult(currentResult);
+              return currentNumber;
+  } else if (!isNaN(userSelection) && 
+            currentOperator &&
+            currentNumber){
+              currentNumber = currentNumber.toString().concat(userSelection);
+              currentResult = currentNumber;
+              displayResult(currentResult)
+              return currentNumber;
+  }
+}
 function performCalculation(e){
   userSelection = e.target.value;
   if (!previousNumber && // Nothing was defined
@@ -202,26 +187,40 @@ function performCalculation(e){
               return currentResult;
   }
 }
+function createDecimal(e){
+  userSelection = e.target.value;
+  if (userSelection == 'decimal' &&
+    !isDecimal(previousNumber)){
+      previousNumber = previousNumber.toString().concat('.');
+      currentResult = previousNumber;
+      displayResult(currentResult)
+      return previousNumber
+    } else if (userSelection == 'decimal' &&
+              !isDecimal(currentNumber)){
+                currentNumber = currentNumber.toString().concat('.');
+                  currentResult = currentNumber;
+                  displayResult(currentResult)
+                  return currentNumber
+    } else return
+}
+
+// Events for utility buttons
+clearButton.addEventListener('click', clearAll)
+deletion.addEventListener('click', removeLastNumber)
+
+// Events for operator buttons
+buttons.forEach( button => button.addEventListener('click', setOperator) )
+
+// Events for number buttons
+buttons.forEach( button => button.addEventListener('click', setNumbers) )
+
+
+// Events for equal buttons
+equalButton.addEventListener('click', performCalculation);
+
 
 // Events for period button
-buttons.forEach( button => {
-  button.addEventListener('click', e => {
-    userSelection = e.target.value;
-    if (userSelection == 'decimal' &&
-      !isDecimal(previousNumber)){
-        previousNumber = previousNumber.toString().concat('.');
-        currentResult = previousNumber;
-        displayResult(currentResult)
-        return previousNumber
-      } else if (userSelection == 'decimal' &&
-                !isDecimal(currentNumber)){
-                  currentNumber = currentNumber.toString().concat('.');
-                    currentResult = currentNumber;
-                    displayResult(currentResult)
-                    return currentNumber
-      } else return
-  })
-})
+buttons.forEach( button => button.addEventListener('click', createDecimal) )
 
 // Keyboard support
 
