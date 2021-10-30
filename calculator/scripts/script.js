@@ -94,11 +94,13 @@ function removeActiveClass(arr){
   })
 }
 function setOperator(e){
-  let target = e.target;
   userSelection = e.target.value;
+  return setOperatorLogic(e.target);
+}
+function setOperatorLogic(target){
   if (checkExistOperator(userSelection) && // User clicks a number, no number was defined
-    !previousNumber){
-    return displayHistory('ERROR');
+  !previousNumber){
+  return displayHistory('ERROR');
   } else if (checkExistOperator(userSelection) &&
             previousNumber){
               currentOperator = userSelection;
@@ -109,43 +111,44 @@ function setOperator(e){
 }
 function setNumbers(e){
   userSelection = e.target.value;
-  if (!isNaN(userSelection) &&
-    userSelection == '0'){            
-      currentResult = userSelection;
-      displayResult(currentResult)
-      return currentResult;
-  } else if (!isNaN(userSelection) &&  
-    !currentOperator &&         
-    !previousNumber){            
-      previousNumber = userSelection;
-      currentResult = previousNumber;
-      displayResult(currentResult)
-      return previousNumber;
-  } else if (!isNaN(userSelection) && 
-            !currentOperator &&       
-            previousNumber){           
-              previousNumber = previousNumber.toString().concat(userSelection);
-              currentResult = previousNumber;
-              displayResult(currentResult)
-              return previousNumber;
+  return setNumbersLogic();
+}
+function setNumbersLogic(){
+  if (!isNaN(userSelection) &&  
+          !currentOperator &&         
+          !previousNumber){            
+            previousNumber = userSelection;
+            currentResult = previousNumber;
+            displayResult(currentResult)
+            return previousNumber;
 } else if (!isNaN(userSelection) && 
-            currentOperator &&
-            !currentNumber){
-              currentNumber = userSelection;
-              currentResult = currentNumber;
-              displayResult(currentResult);
-              return currentNumber;
-  } else if (!isNaN(userSelection) && 
-            currentOperator &&
-            currentNumber){
-              currentNumber = currentNumber.toString().concat(userSelection);
-              currentResult = currentNumber;
-              displayResult(currentResult)
-              return currentNumber;
-  }
+          !currentOperator &&       
+          previousNumber){
+            previousNumber = previousNumber.toString().concat(userSelection);
+            currentResult = previousNumber;
+            displayResult(currentResult)
+            return previousNumber;   
+} else if (!isNaN(userSelection) && 
+          currentOperator &&
+          !currentNumber){
+            currentNumber = userSelection;
+            currentResult = currentNumber;
+            displayResult(currentResult);
+            return currentNumber;
+} else if (!isNaN(userSelection) && 
+          currentOperator &&
+          currentNumber){
+            currentNumber = currentNumber.toString().concat(userSelection);
+            currentResult = currentNumber;
+            displayResult(currentResult)
+            return currentNumber;
+}
 }
 function performCalculation(e){
   userSelection = e.target.value;
+  return performCalculationLogic();
+}
+function performCalculationLogic(){
   if (!previousNumber && // Nothing was defined
     !currentNumber &&
     !currentOperator &&
@@ -163,17 +166,16 @@ function performCalculation(e){
               currentOperator = '';
               return currentResult;
   } else if (previousNumber && // Previous number and operator were defined
-    !currentNumber &&
-    currentOperator == 'percentage' &&
-    currentResult){
-      currentResult = calculate( window[currentOperator], previousNumber);
-      displayResult(currentResult)
-      displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`)
-      previousNumber = '';
-      currentOperator = '';
-      return currentResult;
-  }
-  else if (previousNumber && // Previous number and operator were defined
+            !currentNumber &&
+            currentOperator == 'percentage' &&
+            currentResult){
+              currentResult = calculate( window[currentOperator], previousNumber);
+              displayResult(currentResult)
+              displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`)
+              previousNumber = '';
+              currentOperator = '';
+              return currentResult;
+  } else if (previousNumber && // Previous number and operator were defined
             !currentNumber &&
             currentOperator &&
             currentResult){
@@ -189,19 +191,22 @@ function performCalculation(e){
 }
 function createDecimal(e){
   userSelection = e.target.value;
+  return createDecimalLogic();
+}
+function createDecimalLogic(){
   if (userSelection == 'decimal' &&
-    !isDecimal(previousNumber)){
-      previousNumber = previousNumber.toString().concat('.');
-      currentResult = previousNumber;
-      displayResult(currentResult)
-      return previousNumber
-    } else if (userSelection == 'decimal' &&
-              !isDecimal(currentNumber)){
-                currentNumber = currentNumber.toString().concat('.');
-                  currentResult = currentNumber;
-                  displayResult(currentResult)
-                  return currentNumber
-    } else return
+      !isDecimal(previousNumber)){
+        previousNumber = previousNumber.toString().concat('.');
+        currentResult = previousNumber;
+        displayResult(currentResult)
+        return previousNumber
+  } else if (userSelection == 'decimal' &&
+            !isDecimal(currentNumber)){
+              currentNumber = currentNumber.toString().concat('.');
+              currentResult = currentNumber;
+              displayResult(currentResult)
+              return currentNumber
+  } else return
 }
 
 // Events for utility buttons
@@ -222,11 +227,20 @@ equalButton.addEventListener('click', performCalculation);
 // Events for period button
 buttons.forEach( button => button.addEventListener('click', createDecimal) )
 
-// Keyboard support
-
-
-
-console.log('previous Number is ' + previousNumber)
-console.log('current Number is ' + currentNumber)
-console.log('current Operator is ' + currentOperator)
-console.log('current Result is ' + currentResult)
+// Keyboard support for number buttons
+window.addEventListener('keydown', setNumbersbyKey);
+function setNumbersbyKey(e){
+  const key = document.querySelector(`.button[data-key="${e.keyCode}"]`);
+  if (!key) return;
+  if (isNaN(key.value)) {
+    return;
+  } else if (!e.shiftKey) {
+    userSelection = key.value;
+    return setNumbersLogic();
+  }
+}
+// Keyboard support for operator buttons
+window.addEventListener('keydown', setOperatorByKey);
+function setOperatorByKey(e){
+  
+}
