@@ -40,6 +40,7 @@ html {
   border: 3px solid #252525;
   border-radius: 10px;
   font-size: 2.5rem;
+  transition: all .07s ease;
 }
 .button:hover {
   background-color: rgba(255, 255, 255, .1);
@@ -77,5 +78,5 @@ html {
 .active {
   color: #9A224F;
   background-color: #000;
-  transform: scale(1.1);
+  transform: scale(0.9);
 }

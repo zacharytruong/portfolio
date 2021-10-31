@@ -124,6 +124,7 @@ function setNumbersLogic(){
 } else if (!isNaN(userSelection) && 
           !currentOperator &&       
           previousNumber){
+            if (previousNumber.charAt(0) == '0') previousNumber = previousNumber.slice(1, -1)
             previousNumber = previousNumber.toString().concat(userSelection);
             currentResult = previousNumber;
             displayResult(currentResult)
@@ -138,6 +139,7 @@ function setNumbersLogic(){
 } else if (!isNaN(userSelection) && 
           currentOperator &&
           currentNumber){
+            if (currentNumber.charAt(0) == '0') currentNumber = currentNumber.slice(1, -1)
             currentNumber = currentNumber.toString().concat(userSelection);
             currentResult = currentNumber;
             displayResult(currentResult)
@@ -164,6 +166,7 @@ function performCalculationLogic(){
               previousNumber = '';
               currentNumber = '';
               currentOperator = '';
+              removeActiveClass(buttons)
               return currentResult;
   } else if (previousNumber && // Previous number and operator were defined
             !currentNumber &&
@@ -174,6 +177,7 @@ function performCalculationLogic(){
               displayHistory(`${previousNumber} ${setOperatorSign(currentOperator)}`)
               previousNumber = '';
               currentOperator = '';
+              removeActiveClass(buttons)
               return currentResult;
   } else if (previousNumber && // Previous number and operator were defined
             !currentNumber &&
@@ -186,6 +190,7 @@ function performCalculationLogic(){
               previousNumber = '';
               currentNumber = '';
               currentOperator = '';
+              removeActiveClass(buttons)
               return currentResult;
   }
 }
@@ -236,11 +241,39 @@ function setNumbersbyKey(e){
     return;
   } else if (!e.shiftKey) {
     userSelection = key.value;
+    key.classList.add('active')
     return setNumbersLogic();
   }
 }
+buttons.forEach( button => button.addEventListener('transitionend', removeTransform))
+function removeTransform(e){
+  if (e.propertyName !== 'transform' || isNaN(this.value)) return;
+  this.classList.remove('active')
+}
+
 // Keyboard support for operator buttons
 window.addEventListener('keydown', setOperatorByKey);
 function setOperatorByKey(e){
-  
+  if (e.keyCode == '56' && e.shiftKey){
+    const key = document.querySelector(`.button[value="multiply"]`);
+    if (!key) return;
+    userSelection = 'multiply';
+    return setOperatorLogic(key)
+  } else {
+    const key = document.querySelector(`.button[data-key="${e.keyCode}"]`);
+    if (!key) return;
+    if (isNaN(key.value) && checkExistOperator(key.value)){
+      userSelection = key.value;
+      return setOperatorLogic(key)
+    }
+  }
+}
+
+// Keyboard support for equal button
+window.addEventListener('keydown', calculateByKey);
+function calculateByKey(e){
+  if (e.keyCode == '13'){
+    userSelection = 'equal';
+    return performCalculationLogic();
+  }
 }
