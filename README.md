@@ -25,7 +25,7 @@ Live preview: [https://zacharytruong.github.io/portfolio/etch-a-sketch](https://
 
 ### Rock paper scissors
 
-Play a rock-paper-scissors game until a player or computer win 3 rounds.
+Play a rock-paper-scissors game until a player or computer win 5 rounds.
 
 Source code: [https://github.com/zacharytruong/portfolio/tree/main/rock-paper-scissors](https://github.com/zacharytruong/portfolio/tree/main/rock-paper-scissors)
 
