@@ -224,6 +224,17 @@ function setNumbersbyKey(e){
     return setNumbersLogic();
   }
 }
+function setNumbersbyNumpad(e){
+  const key = document.querySelector(`.button[numpad-key="${e.keyCode}"]`);
+  if (!key) return;
+  if (isNaN(key.value)) {
+    return;
+  } else if (!e.shiftKey) {
+    userSelection = key.value;
+    key.classList.add("active")
+    return setNumbersLogic();
+  } 
+}
 function setOperatorByKey(e){
   if (e.keyCode == "56" && e.shiftKey){
     const key = document.querySelector(`.button[value="multiply"]`);
@@ -244,6 +255,14 @@ function setOperatorByKey(e){
     }
   }
 }
+function setOperatorByNumpad(e){
+  const key = document.querySelector(`.button[numpad-key="${e.keyCode}"]`);
+  if (!key) return;
+  if (isNaN(key.value) && checkExistOperator(key.value)){
+    userSelection = key.value;
+    return setOperatorLogic(key)
+  }
+}
 function calculateByKey(e){
   if (e.keyCode === 13){
     userSelection = "equal";
@@ -254,7 +273,7 @@ function removeTransform(e){
   if (e.propertyName !== "transform" || isNaN(this.value)) return;
   this.classList.remove("active")
 }
-function operateUtilitybyKey(e){
+function operateUtilityByKey(e){
   const key = document.querySelector(`.button[data-key="${e.keyCode}"]`);
   if (!key) return;
   if (key.value == "clear"){
@@ -264,7 +283,8 @@ function operateUtilitybyKey(e){
   }
 }
 function setDecimalByKey(e){
-  if (e.keyCode === 190){
+  if (e.keyCode === 190 ||
+      e.keyCode === 110){
     userSelection = 'decimal';
     createDecimalLogic() 
   }
@@ -289,17 +309,19 @@ buttons.forEach( button => button.addEventListener("click", createDecimal) )
 // Remove active button effect
 buttons.forEach( button => button.addEventListener("transitionend", removeTransform))
 
-// Keyboard support for number buttons
+// Keyboard and numpad support for number buttons
 window.addEventListener("keydown", setNumbersbyKey);
+window.addEventListener("keydown", setNumbersbyNumpad);
 
-// Keyboard support for operator buttons
+// Keyboard and numpad support for operator buttons
 window.addEventListener("keydown", setOperatorByKey);
+window.addEventListener("keydown", setOperatorByNumpad);
 
-// Keyboard support for equal button
+// Keyboard and numpad support for equal button
 window.addEventListener("keydown", calculateByKey);
 
-// Keyboard support for utility button
-window.addEventListener("keydown", operateUtilitybyKey);
+// Keyboard and numpad support for utility button
+window.addEventListener("keydown", operateUtilityByKey);
 
-// Keyboard support for period button
+// Keyboard and numpad support for period button
 window.addEventListener("keydown", setDecimalByKey);
