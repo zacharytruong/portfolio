@@ -6,3 +6,6 @@ In this demo, I can demonstrate the following skills:
 3. While loops
 4. Keep scores and score calculation
 5. Clean codes
+
+[Live Demo](https://zacharytruong.github.io/portfolio/rock-paper-scissors/) ❤️
+
